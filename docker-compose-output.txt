@@ -1,0 +1,163 @@
+﻿docker : time="2026-05-17T08:07:51+02:00" level=warning 
+msg="C:\\Users\\liat1\\github\\task-microservice-project\\docker-compose.yml: 
+the attribute `version` is obsolete, it will be ignored, please remove it to 
+avoid potential confusion"
+At line:1 char:1
++ docker compose up --build 2>&1 | Out-File -FilePath .\docker-compose- ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (time="2026-05-1...tial confusion" 
+   :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+#1 [internal] load local bake definitions
+#1 reading from stdin 1.67kB done
+#1 DONE 0.0s
+
+#2 [gateway internal] load build definition from Dockerfile
+#2 transferring dockerfile: 185B 0.0s done
+#2 DONE 0.0s
+
+#3 [frontend internal] load build definition from Dockerfile
+#3 transferring dockerfile: 324B done
+#3 DONE 0.0s
+
+#4 [service internal] load build definition from Dockerfile
+#4 transferring dockerfile: 175B done
+#4 DONE 0.0s
+
+#5 [service internal] load metadata for docker.io/library/node:20-alpine
+#5 ...
+
+#6 [frontend internal] load metadata for docker.io/library/nginx:alpine
+#6 DONE 0.4s
+
+#5 [frontend internal] load metadata for docker.io/library/node:20-alpine
+#5 DONE 0.4s
+
+#7 [service internal] load .dockerignore
+#7 transferring context: 2B done
+#7 DONE 0.0s
+
+#8 [frontend internal] load .dockerignore
+#8 transferring context: 2B done
+#8 DONE 0.0s
+
+#9 [gateway internal] load .dockerignore
+#9 transferring context: 2B done
+#9 DONE 0.0s
+
+#10 [service internal] load build context
+#10 transferring context: 93B done
+#10 DONE 0.0s
+
+#11 [frontend internal] load build context
+#11 transferring context: 242B done
+#11 DONE 0.0s
+
+#12 [gateway internal] load build context
+#12 transferring context: 93B done
+#12 DONE 0.0s
+
+#13 [frontend 1/5] FROM docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293
+#13 resolve docker.io/library/node:20-alpine@sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293 0.0s done
+#13 DONE 0.0s
+
+#14 [gateway 3/5] COPY package*.json ./
+#14 CACHED
+
+#15 [gateway 4/5] RUN npm install --only=production
+#15 CACHED
+
+#16 [gateway 5/5] COPY . .
+#16 CACHED
+
+#17 [frontend stage-1 1/3] FROM docker.io/library/nginx:alpine@sha256:dc48b7a872a79fb541ba5081d320b11b549231bc63ba465a7495afaa7d2ebcb8
+#17 resolve docker.io/library/nginx:alpine@sha256:dc48b7a872a79fb541ba5081d320b11b549231bc63ba465a7495afaa7d2ebcb8 0.0s done
+#17 DONE 0.0s
+
+#18 [service 3/5] COPY package*.json ./
+#18 CACHED
+
+#19 [service 4/5] RUN npm install --only=production
+#19 CACHED
+
+#20 [service 5/5] COPY . .
+#20 CACHED
+
+#21 [frontend builder 5/6] COPY . .
+#21 CACHED
+
+#22 [frontend builder 3/6] COPY package*.json ./
+#22 CACHED
+
+#23 [frontend builder 6/6] RUN npm run build
+#23 CACHED
+
+#24 [frontend 2/5] WORKDIR /app
+#24 CACHED
+
+#25 [frontend stage-1 2/3] COPY --from=builder /app/build /usr/share/nginx/html
+#25 CACHED
+
+#26 [frontend builder 4/6] RUN npm install
+#26 CACHED
+
+#27 [frontend stage-1 3/3] COPY nginx.conf /etc/nginx/conf.d/default.conf
+#27 CACHED
+
+#28 [gateway] exporting to image
+#28 exporting layers done
+#28 exporting manifest sha256:a2703904ab6aa98c65fed890a70f68175eccf9080d70bdcee8607224e73dd3df 0.0s done
+#28 exporting config sha256:3b8c10beedeca9f2dcfe1985161e6858da7b84942b3647d64f656f5b9aef2b23
+#28 exporting config sha256:3b8c10beedeca9f2dcfe1985161e6858da7b84942b3647d64f656f5b9aef2b23 0.0s done
+#28 exporting attestation manifest sha256:c740b74c5e8d9409a20c9a455efe6ed8534c40abac7c31dc2f3cc978bb255318 0.1s done
+#28 exporting manifest list sha256:2913a3d0094fe4e6ec0ad5cd9db024f7134eb1750bc3b5f27135811f15d55ae0
+#28 exporting manifest list sha256:2913a3d0094fe4e6ec0ad5cd9db024f7134eb1750bc3b5f27135811f15d55ae0 0.0s done
+#28 naming to docker.io/library/task-microservice-project-gateway:latest 0.0s done
+#28 unpacking to docker.io/library/task-microservice-project-gateway:latest 0.0s done
+#28 DONE 0.2s
+
+#29 [service] exporting to image
+#29 exporting layers done
+#29 exporting manifest sha256:528eeec5cfaf13cbc788d617629023bc299564bab836282fe086971896c810a1 0.0s done
+#29 exporting config sha256:3f6373fdb681b9ee0b04041aa5495c07332501db942b1ec589de6061d912d94d 0.0s done
+#29 exporting attestation manifest sha256:acd15a61d7cd608b160fe2617b8df35e70392d121c7c040334b0433a27734257 0.1s done
+#29 exporting manifest list sha256:05bb3cb203db8fd9375e858b06fc01e31281ac5d64aa096ff91e3f11754692df 0.0s done
+#29 naming to docker.io/library/task-microservice-project-service:latest done
+#29 unpacking to docker.io/library/task-microservice-project-service:latest 0.0s done
+#29 DONE 0.3s
+
+#30 [frontend] exporting to image
+#30 exporting layers done
+#30 exporting manifest sha256:560aad6a965d91834cd1deccf9e2b58f4a7c7042b3eaee9f1ad30c520060374a 0.0s done
+#30 exporting config sha256:185d637ab264fcb5f46c008f3839178db14c27411aa0100ff79b0dc7109a082c 0.0s done
+#30 exporting attestation manifest sha256:1ddf08909334f975e9a3dfdc6e5331a54977c0109b2cc329be1433d767fbef68 0.1s done
+#30 exporting manifest list sha256:2565359cfcd7eec857a0142603eca580c091a6d5c30173580878ca6c3ae18928 0.0s done
+#30 naming to docker.io/library/task-microservice-project-frontend:latest done
+#30 unpacking to docker.io/library/task-microservice-project-frontend:latest 0.0s done
+#30 DONE 0.3s
+
+#31 [gateway] resolving provenance for metadata file
+#31 DONE 0.1s
+
+#32 [service] resolving provenance for metadata file
+#32 DONE 0.1s
+
+#33 [frontend] resolving provenance for metadata file
+#33 DONE 0.0s
+ task-microservice-project-gateway  Built
+ task-microservice-project-frontend  Built
+ task-microservice-project-service  Built
+ Container mongodb  Running
+ Container redis-cache  Running
+ Container task-service  Recreate
+ Container task-service  Recreated
+ Container api-gateway  Recreate
+ Container api-gateway  Recreated
+ Container frontend  Recreate
+ Container frontend  Recreated
+Attaching to api-gateway, frontend, mongodb, redis-cache, task-service
+Gracefully Stopping... press Ctrl+C again to force
+Error response from daemon: ports are not available: exposing port TCP 
+0.0.0.0:8080 -> 127.0.0.1:0: listen tcp 0.0.0.0:8080: bind: Only one usage of 
+each socket address (protocol/network address/port) is normally permitted.
