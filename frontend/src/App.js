@@ -19,6 +19,29 @@ function App() {
   const [message, setMessage] = useState('');
   const [error, setError] = useState('');
 
+  const palette = {
+    bg: '#f4f6fb',
+    card: '#ffffff',
+    primary: '#2563eb',
+    danger: '#dc3545',
+    muted: '#6b7280'
+  };
+
+  const styles = {
+    app: { padding: '30px', fontFamily: 'Segoe UI, Roboto, Arial, sans-serif', minHeight: '100vh', background: palette.bg, display: 'flex', justifyContent: 'center' },
+    wrapper: { width: '100%', maxWidth: '980px' },
+    header: { display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '20px' },
+    title: { margin: 0, fontSize: '1.6rem' },
+    subtitle: { margin: 0, color: palette.muted, fontSize: '0.95rem' },
+    card: { background: palette.card, padding: '24px', borderRadius: '12px', boxShadow: '0 6px 18px rgba(32,33,36,0.08)' },
+    formInput: { display: 'block', width: '100%', padding: '10px', margin: '10px 0', borderRadius: '8px', border: '1px solid #e5e7eb' },
+    buttonPrimary: { padding: '10px 16px', background: palette.primary, color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer' },
+    buttonSecondary: { padding: '8px 14px', background: '#f3f4f6', color: '#111827', border: 'none', borderRadius: '8px', cursor: 'pointer' },
+    googleButton: { display: 'block', width: '100%', padding: '10px', margin: '10px 0', background: '#4285F4', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer' },
+    taskItem: { padding: '12px', margin: '8px 0', background: '#fbfdff', borderRadius: '8px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', border: '1px solid #eef2ff' },
+    smallButton: { marginLeft: '8px', padding: '6px 10px', borderRadius: '6px', border: 'none', cursor: 'pointer' }
+  };
+
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
@@ -135,141 +158,146 @@ function App() {
   };
 
   return (
-    <div style={{ padding: '30px', fontFamily: 'Arial, sans-serif', maxWidth: '900px' }}>
-      <h1>Task Manager Microservice</h1>
+    <div style={styles.app}>
+      <div style={styles.wrapper}>
+        <div style={styles.header}>
+          <div style={{ fontSize: '1.8rem' }}>🗂️</div>
+          <div>
+            <h1 style={styles.title}>Task Manager Microservice</h1>
+            <p style={styles.subtitle}>Lightweight task service with auth, roles, and metrics</p>
+          </div>
+        </div>
 
-      {!token ? (
+        <div style={styles.card}>
+
+          {!token ? (
         /* ====================== AUTH FORM ====================== */
-        <div style={{ maxWidth: '400px' }}>
-          <div style={{ marginBottom: '20px' }}>
-            <button 
-              onClick={() => setIsLogin(true)} 
-              style={{ marginRight: '15px', fontWeight: isLogin ? 'bold' : 'normal' }}
-            >
-              Login
-            </button>
-            <button 
-              onClick={() => setIsLogin(false)} 
-              style={{ fontWeight: !isLogin ? 'bold' : 'normal' }}
-            >
-              Register
-            </button>
-          </div>
-
-          <form onSubmit={isLogin ? login : register}>
-            <input
-              type="text"
-              placeholder="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              style={{ display: 'block', width: '100%', padding: '10px', margin: '10px 0' }}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              style={{ display: 'block', width: '100%', padding: '10px', margin: '10px 0' }}
-              required
-            />
-            {!isLogin && (
-              <p style={{ margin: '0 0 10px', fontSize: '0.9rem', color: '#555' }}>
-                Password must be at least 6 characters and include uppercase, lowercase, number, and symbol.
-              </p>
-            )}
-            {isLogin && (
+          <div style={{ maxWidth: '480px' }}>
+            <div style={{ marginBottom: '18px', display: 'flex', gap: '10px' }}>
               <button
-                type="button"
-                onClick={() => window.location.href = `${API_BASE}/auth/oauth/google`}
-                style={{ display: 'block', width: '100%', padding: '10px', margin: '10px 0', background: '#4285F4', color: 'white', border: 'none', cursor: 'pointer' }}
+                onClick={() => setIsLogin(true)}
+                style={{ ...styles.buttonSecondary, fontWeight: isLogin ? '600' : '400' }}
               >
-                Sign in with Google
+                Login
               </button>
-            )}
-
-            {!isLogin && (
-              <select 
-                value={role} 
-                onChange={(e) => setRole(e.target.value)}
-                style={{ display: 'block', width: '100%', padding: '10px', margin: '10px 0' }}
+              <button
+                onClick={() => setIsLogin(false)}
+                style={{ ...styles.buttonSecondary, fontWeight: !isLogin ? '600' : '400' }}
               >
-                <option value="USER">User</option>
-                <option value="ADMIN">Admin</option>
-              </select>
-            )}
+                Register
+              </button>
+            </div>
 
-            <button type="submit" style={{ padding: '12px 24px', marginTop: '10px', width: '100%' }}>
-              {isLogin ? 'Login' : 'Register New User'}
-            </button>
-          </form>
+            <form onSubmit={isLogin ? login : register}>
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                style={styles.formInput}
+                required
+              />
+              <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                style={styles.formInput}
+                required
+              />
+              {!isLogin && (
+                <p style={{ margin: '0 0 10px', fontSize: '0.9rem', color: palette.muted }}>
+                  Password must be at least 6 characters and include uppercase, lowercase, number, and symbol.
+                </p>
+              )}
+              {isLogin && (
+                <button
+                  type="button"
+                  onClick={() => window.location.href = `${API_BASE}/auth/oauth/google`}
+                  style={styles.googleButton}
+                >
+                  Sign in with Google
+                </button>
+              )}
 
-          {message && <p style={{ color: 'green', marginTop: '15px' }}>{message}</p>}
-          {error && <p style={{ color: 'red', marginTop: '15px' }}>{error}</p>}
-        </div>
-      ) : (
-        /* ====================== TASK MANAGER UI ====================== */
-        <div>
-          <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            <button onClick={fetchTasks}>Refresh Tasks</button>
-            <button 
-              onClick={logout}
-              style={{ background: '#dc3545', color: 'white', border: 'none', padding: '8px 16px', cursor: 'pointer' }}
-            >
-              Logout
-            </button>
+              {!isLogin && (
+                <select
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  style={styles.formInput}
+                >
+                  <option value="USER">User</option>
+                  <option value="ADMIN">Admin</option>
+                </select>
+              )}
+
+              <button type="submit" style={{ ...styles.buttonPrimary, width: '100%', marginTop: '8px' }}>
+                {isLogin ? 'Login' : 'Register New User'}
+              </button>
+            </form>
+
+            {message && <p style={{ color: 'green', marginTop: '15px' }}>{message}</p>}
+            {error && <p style={{ color: 'red', marginTop: '15px' }}>{error}</p>}
           </div>
+        ) : (
+        /* ====================== TASK MANAGER UI ====================== */
+          <div>
+            <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+              <button onClick={fetchTasks} style={styles.buttonSecondary}>Refresh Tasks</button>
+              <button
+                onClick={logout}
+                style={{ ...styles.buttonPrimary, background: palette.danger }}
+              >
+                Logout
+              </button>
+            </div>
 
-          <form onSubmit={createTask} style={{ marginBottom: '30px' }}>
-            <input 
-              value={title} 
-              onChange={(e) => setTitle(e.target.value)} 
-              placeholder="Enter new task title" 
-              required 
-              style={{ padding: '10px', width: '350px', marginRight: '10px' }}
-            />
-            <button type="submit" style={{ padding: '10px 20px' }}>Add Task</button>
-          </form>
+            <form onSubmit={createTask} style={{ marginBottom: '24px', display: 'flex', gap: '8px', alignItems: 'center' }}>
+              <input
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                placeholder="Enter new task title"
+                required
+                style={{ ...styles.formInput, flex: 1, margin: 0 }}
+              />
+              <button type="submit" style={styles.buttonPrimary}>Add</button>
+            </form>
 
-          <h3>My Tasks ({tasks.length})</h3>
-          <ul style={{ listStyle: 'none', padding: 0 }}>
-            {tasks.map(task => (
-              <li key={task._id} style={{ 
-                padding: '12px', 
-                margin: '8px 0', 
-                background: '#f8f9fa',
-                borderRadius: '6px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}>
-                {editingId === task._id ? (
-                  <div style={{ flex: 1 }}>
-                    <input 
-                      value={editTitle} 
-                      onChange={(e) => setEditTitle(e.target.value)}
-                      style={{ width: '65%', padding: '8px' }}
-                    />
-                    <button onClick={() => saveEdit(task._id)} style={{ marginLeft: '8px' }}>Save</button>
-                    <button onClick={() => { setEditingId(null); setEditTitle(''); }} style={{ marginLeft: '8px' }}>Cancel</button>
-                  </div>
-                ) : (
-                  <>
-                    <span style={{ flex: 1 }}>{task.title}</span>
-                    <div>
-                      <button onClick={() => startEditing(task)} style={{ marginRight: '8px' }}>Edit</button>
-                      <button onClick={() => deleteTask(task._id)} style={{ color: 'red' }}>Delete</button>
+            <h3 style={{ marginTop: 0 }}>My Tasks ({tasks.length})</h3>
+            <ul style={{ listStyle: 'none', padding: 0 }}>
+              {tasks.length === 0 && <li style={{ color: palette.muted }}>No tasks yet — add your first task above ✨</li>}
+              {tasks.map(task => (
+                <li key={task._id} style={styles.taskItem}>
+                  {editingId === task._id ? (
+                    <div style={{ flex: 1, display: 'flex', gap: '8px' }}>
+                      <input
+                        value={editTitle}
+                        onChange={(e) => setEditTitle(e.target.value)}
+                        style={{ flex: 1, padding: '8px', borderRadius: '6px', border: '1px solid #e6edf8' }}
+                      />
+                      <button onClick={() => saveEdit(task._id)} style={{ ...styles.smallButton, background: palette.primary, color: 'white' }}>Save</button>
+                      <button onClick={() => { setEditingId(null); setEditTitle(''); }} style={styles.smallButton}>Cancel</button>
                     </div>
-                  </>
-                )}
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
+                  ) : (
+                    <>
+                      <span style={{ flex: 1 }}>{task.title}</span>
+                      <div>
+                        <button onClick={() => startEditing(task)} style={{ ...styles.smallButton, background: '#f3f4f6' }}>Edit</button>
+                        <button onClick={() => deleteTask(task._id)} style={{ ...styles.smallButton, background: 'transparent', color: palette.danger }}>Delete</button>
+                      </div>
+                    </>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
 
-      {message && <p style={{ color: 'green', marginTop: '15px' }}>{message}</p>}
-      {error && <p style={{ color: 'red', marginTop: '15px' }}>{error}</p>}
+        {message && <p style={{ color: 'green', marginTop: '15px' }}>{message}</p>}
+        {error && <p style={{ color: 'red', marginTop: '15px' }}>{error}</p>}
+
+        </div>
+      </div>
     </div>
   );
 }

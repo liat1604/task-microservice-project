@@ -1,6 +1,9 @@
 <<<<<<< HEAD
+
 # task-microservice-project
+
 =======
+
 # Task Manager Microservice Project
 
 ## Project Overview
@@ -60,4 +63,5 @@ The repository includes an Azure Container Apps deployment helper.
 cd deploy
 bash azure-containerapps.sh
 ```
->>>>>>> fd0d0fa (Initial project import with auth gateway, service, frontend, and deployment helpers)
+
+> > > > > > > fd0d0fa (Initial project import with auth gateway, service, frontend, and deployment helpers)

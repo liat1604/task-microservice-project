@@ -18,7 +18,6 @@ app.use(passport.initialize());
 const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 const MONGO_URL = process.env.MONGO_URL || 'mongodb://mongodb:27017/taskdb';
 
-// ====================== LOGGER ======================
 const logger = winston.createLogger({
   level: 'info',
   format: winston.format.combine(
