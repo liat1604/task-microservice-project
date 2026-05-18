@@ -5,23 +5,21 @@ services:
     image: mongo:7
     container_name: mongodb
     restart: unless-stopped
-    ports:
-      - "27017:27017"
     volumes:
       - mongo_data:/data/db
     networks:
       - backend
+    # Not exposed externally — only accessible within the backend network
 
   redis:
     image: redis:7-alpine
     container_name: redis-cache
     restart: unless-stopped
-    ports:
-      - "6379:6379"
     volumes:
       - redis_data:/data
     networks:
       - backend
+    # Not exposed externally
 
   service:
     build: ./service
@@ -33,14 +31,17 @@ services:
       - redis
     networks:
       - backend
+    # Not exposed externally — only reachable via gateway
 
   gateway:
     build: ./gateway
     container_name: api-gateway
     restart: unless-stopped
     ports:
-      - "8080:3000"
+      - "8080:3000"   # Direct gateway access for debugging / Prometheus scraping
     env_file: .env
+    environment:
+      - SERVICE_URL=http://service:3001
     depends_on:
       - service
     networks:
@@ -52,7 +53,7 @@ services:
     container_name: frontend
     restart: unless-stopped
     ports:
-      - "3000:3000" # ← Changed back to 3000
+      - "3000:3000"   # Main user-facing port
     depends_on:
       - gateway
     networks:
