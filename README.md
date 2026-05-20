@@ -218,8 +218,6 @@ First run takes 2–3 minutes to pull images and install dependencies. Subsequen
 http://localhost:3000
 ```
 
-Log in with the default admin account: **username:** `admin` · **password:** `Admin@1234!`
-
 ### Stopping
 
 ```bash
